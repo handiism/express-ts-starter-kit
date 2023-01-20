@@ -2,7 +2,7 @@ import { server } from "./app";
 import request from "supertest";
 
 describe("GET /", () => {
-  it("responds with json", async function () {
+  it("responds with pong response", async function () {
     const res = await request(server).get("/");
 
     expect(res.statusCode).toEqual(200);
