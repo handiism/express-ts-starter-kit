@@ -1,19 +1,28 @@
-import express, { Response, Request, Express } from "express";
+import express, { Response, Request, Express, urlencoded, json } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import compression from "compression";
+import helmet from "helmet";
 
 dotenv.config();
 
 const app: Express = express();
 
 app.use(cors());
-app.use(express.json());
+app.use(helmet());
+app.use(compression());
+app.use(urlencoded({ extended: false }));
+app.use(json());
+
+app.disable("X-Powered-By");
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ ping: "pong" });
 });
 
-const port = process.env.PORT;
-export const server = app.listen(port, () => {
-  console.log(`Server started at http://${process.env.HOSTNAME}:${port}`);
+const port = Number(process.env.PORT) || 8000;
+const hostname = String(process.env.HOSTNAME);
+
+export const server = app.listen(port, hostname, () => {
+  console.log(`Server started at http://${hostname}:${port}`);
 });
