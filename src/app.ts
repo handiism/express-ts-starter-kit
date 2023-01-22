@@ -3,6 +3,9 @@ import dotenv from "dotenv";
 import cors from "cors";
 import compression from "compression";
 import helmet from "helmet";
+import { serve, setup } from "swagger-ui-express";
+import { readFileSync } from "fs";
+import { parse } from "yaml";
 
 dotenv.config();
 
@@ -14,7 +17,9 @@ app.use(compression());
 app.use(urlencoded({ extended: false }));
 app.use(json());
 
-app.disable("X-Powered-By");
+const file = readFileSync("./api-spec.yml", "utf-8");
+const swagger = parse(file);
+app.use("/api-docs", serve, setup(swagger));
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ ping: "pong" });

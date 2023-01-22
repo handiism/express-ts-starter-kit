@@ -1,0 +1,22 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: API Docs
+  description: Simple API Documentation Using Open API Swagger
+servers:
+  - url: http://127.0.0.1:8000
+paths:
+  /:
+    get:
+      responses:
+        default:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ping:
+                    type: string
+                    description: pong
+                    example: pong
