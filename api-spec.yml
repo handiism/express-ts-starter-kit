@@ -4,7 +4,7 @@ info:
   title: API Docs
   description: Simple API Documentation Using Open API Swagger
 servers:
-  - url: http://127.0.0.1:8000
+  - url: "{{ &url }}"
 paths:
   /:
     get:
